@@ -1,8 +1,19 @@
-sicherman <- function(sum = FALSE) {
-  s1 <- cast_dice(c(1, 2, 2, 3, 3, 4))
-  s2 <- cast_dice(c(1, 3, 4, 5, 6, 8))
+sicherman <- function(n_tries=1, sum = FALSE) {
+  s1 <- .sicherman1(n_tries)
+  s2 <- .sicherman2(n_tries)
+  result <- s1 + s2 # sum result of each cast
   if (sum) {
-    return(s1+s2)
+    return(sum(result))
   }
-  return(c(s1, s2))
+  return(result)
+}
+
+.sicherman1 <- function(n_tries = 1) {
+  s1 <- cast_dice(c(1, 2, 2, 3, 3, 4), n_tries)
+  return(s1)
+}
+
+.sicherman2 <- function(n_tries = 1) {
+  s2 <- cast_dice(c(1, 3, 4, 5, 6, 8), n_tries)
+  return(s2)
 }
