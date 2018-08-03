@@ -1,72 +1,75 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-> ... iacta alea est
->
-> -- <cite>[Gaius Julius Caesar](https://en.wikipedia.org/wiki/Alea_iacta_est)</cite>
 
-alea
-====
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+> ... iacta alea est 
+> 
+> -- <cite>[Gaius Julius Caesar][1]</cite>
+
+[1]:https://en.wikipedia.org/wiki/Alea_iacta_est
+
+# alea
 
 R package for casting dice, including dice for [Dungeons & Dragons](http://dnd.wizards.com/) and special dice like the [Sicherman dice](https://en.wikipedia.org/wiki/Sicherman_dice).
 
-Overview
---------
+## Overview
 
 `alea` consists of one main function `cast_dice()` with parameters for different situations (see below) and several dice like `d4()`, `d20()`, `sicherman()` which can be used without additional parameters. The interface for the main function is `cast_dice(sides = 1:6, n_tries = 1, sum = FALSE)`.
 
--   `sides`: can either be an integer value (maximum value on a standard dice) or a vector of sides. `6` and `1:6` both result in casting a 6-sided dice.
--   `n_tries`: how often the dice should be cast.
--   `sum`: whether the result of casting the dice should be summed.
+* `sides`: can either be an integer value (maximum value on a standard dice) or a vector of sides. `6` and `1:6` both result in casting a 6-sided dice.
+* `n_tries`: how often the dice should be cast.
+* `sum`: whether the result of casting the dice should be summed.
 
-Installation
-------------
+## Installation
 
 You can install alea from github with:
 
-``` r
+```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("expectopatronum/alea")
 ```
 
-Other packages
---------------
+## Other packages
 
 Since casting dice is a rather important and easily programmed task, there exist a few other R package. In case you are looking for functionality which is not provided by `alea`, this list gives you an overview over the packages I found and the description they provided:
 
--   [dice](https://github.com/cran/dice): Calculate probabilities of various dice-rolling events
--   [Rdice](https://github.com/gennaro-tedesco/Rdice): R package to simulate dice rolls, combinatorical and best choice problems.
--   [diceSyntax](https://github.com/oganm/diceSyntax): dice roller with standard syntax
+* [dice](https://github.com/cran/dice): Calculate probabilities of various dice-rolling events
+* [Rdice](https://github.com/gennaro-tedesco/Rdice): R package to simulate dice rolls, combinatorical and best choice problems.
+* [diceSyntax](https://github.com/oganm/diceSyntax): dice roller with standard syntax
 
-Examples
---------
+## Examples
 
 These examples show the usage of some of the dice in the package.
 
-``` r
+```{r seed}
 set.seed(24) # this seed was randomly chosen by casting a d60
 ```
 
-``` r
+```{r ex1}
 cast_dice()
-#> [1] 2
 ```
-
-``` r
+```{r ex2}
 cast_dice(20, 3)
-#> [1]  5 15 11
 ```
 
-``` r
+```{r ex3}
 cast_dice(c(2, 4, 6, 8, 10))
-#> [1] 8
 ```
 
-``` r
+```{r ex4}
 d20()
-#> [1] 19
 ```
 
-``` r
+```{r ex5}
 d6(4, TRUE)
-#> [1] 14
 ```
