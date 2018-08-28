@@ -1,3 +1,8 @@
+#' Cast a Sicherman dice
+#'
+#' @param n_tries how often the dice should be cast.
+#' @param sum whether the result of casting the dice should be summed.
+#' @export
 sicherman <- function(n_tries=1, sum = FALSE) {
   s1 <- .sicherman1(n_tries)
   s2 <- .sicherman2(n_tries)
