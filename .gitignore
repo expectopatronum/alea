@@ -27,3 +27,6 @@ vignettes/*.pdf
 rsconnect/
 .Rproj.user
 inst/doc
+
+# added manually
+README.html
