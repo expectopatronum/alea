@@ -1,0 +1,108 @@
+---
+title: "Comparison of available dice packages"
+author: "Verena Haunschmid"
+date: "August 28, 2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+## Available packages
+
+Besides `alea` other packages related to casting dice are available. In case you are looking for functionality which is not provided by `alea`, this list gives you an overview over the packages I found and the description they provided: 
+
+* [dice](https://github.com/cran/dice): Calculate probabilities of various dice-rolling events
+* [Rdice](https://github.com/gennaro-tedesco/Rdice): R package to simulate dice rolls, combinatorical and best choice problems.
+* [diceSyntax](https://github.com/oganm/diceSyntax): dice roller with standard syntax
+
+This document shows a few of the use cases where another package might be more suitable for you.
+
+### dice
+
+```{r dice1}
+library(dice)
+```
+
+The package `dice` is a package for calculating probabilities of various dice-rolling events, so this is something completely different from what `alea` is doing. The package consists of two functions: (a) `getEventProb()` and (b) `getSumProbs()`. The package is not very well documented and the functionality of `getEventProb()` was not immediately clear to me. So I try to explain it in more detail.
+
+The first three examples are taken from the manual of the package.
+
+```{r dice2}
+getEventProb(nrolls = 6,
+             ndicePerRoll = 1,
+             nsidesPerDie = 4,
+             eventList = list(4, 3, c(1,2)),
+             orderMatters = FALSE)
+```
+
+```{r dice3}
+getEventProb(nrolls = 3,
+             ndicePerRoll = 2,
+             nsidesPerDie = 6,
+             eventList = list(10, 4, c(2:6, 8:12)),
+             orderMatters = TRUE)
+```
+
+The function `getSumProbs()` is more straightforward. 
+
+```{r dice4}
+getSumProbs(ndicePerRoll = 5,
+            nsidesPerDie = 6,
+            nkept = 3,
+            dropLowest = TRUE)
+```
+
+For better understanding, let me compute the probabilities of a more commonly used example (e.g., for teaching). Casting a 6-sided dice for two times.
+
+```{r dice5}
+probs <- getSumProbs(ndicePerRoll = 2,
+            nsidesPerDie = 6,
+            nkept = 2)
+probs <- data.frame(probs$probabilities)
+ggplot(probs) + geom_col(aes(x=Sum,  y=Ways.to.Roll)) + scale_x_discrete(limits=probs$Sum)
+```
+
+### Rdice
+
+The package `Rdice` contains a set of function that can do similar things as `alea`.
+
+```{r Rdice1}
+library(Rdice)
+```
+
+The core function seems to be `dice.roll()`. It produced a lot of output in a complicated list structure which does not make it very useful for other applications.
+
+The following example is taken from the help page of the function an casts 3 6-sided dice 5 times each.
+
+```{r Rdice2}
+dice.roll(faces = 6, dice = 3, rolls = 5)
+```
+
+The package also contains three datasets of non-transitive dice, i.e. [Efron dice](http://mathworld.wolfram.com/EfronsDice.html) (`efron`), [Miwin dice](https://en.wikipedia.org/wiki/Miwin%27s_dice) (`miwin`) and [Oskar](https://en.wikipedia.org/wiki/Nontransitive_dice#Oskar_dice) (`oskar`).
+
+The package contains a [vignette](https://github.com/gennaro-tedesco/Rdice/blob/master/vignettes/Rdice-vignette.pdf) with more detailed explanations.
+
+### diceSyntax
+
+The package `diceSyntax` contains several functions but only documentation for `roll`.
+
+The package is only available on github.
+
+```{r diceSyntax1, eval=FALSE}
+devtools::install_github("oganm/diceSyntax")
+```
+
+```{r diceSyntax2}
+library(diceSyntax)
+```
+
+The interesting part of this package is that you can pass dice events like `4d6` in order to cast 4 6-sided dice.
+
+```{r diceSyntax3}
+roll("4d6")
+```
+
+More examples (e.g., keep highest/lowest 3, ...) can be found in the [README of diceSyntax](https://github.com/oganm/diceSyntax).

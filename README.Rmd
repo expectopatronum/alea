@@ -39,13 +39,15 @@ You can install alea from github with:
 devtools::install_github("expectopatronum/alea")
 ```
 
+Load the package:
+
+```{r load-package}
+library(alea)
+```
+
 ## Other packages
 
-Since casting dice is a rather important and easily programmed task, there exist a few other R package. In case you are looking for functionality which is not provided by `alea`, this list gives you an overview over the packages I found and the description they provided:
-
-* [dice](https://github.com/cran/dice): Calculate probabilities of various dice-rolling events
-* [Rdice](https://github.com/gennaro-tedesco/Rdice): R package to simulate dice rolls, combinatorical and best choice problems.
-* [diceSyntax](https://github.com/oganm/diceSyntax): dice roller with standard syntax
+Since casting dice is a rather important and easily programmed task, there exist a few other R package. I made a list of the ones I found and tried a few examples [here](misc/package_comparison.md).
 
 ## Examples
 
